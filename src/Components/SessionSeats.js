@@ -119,71 +119,105 @@ export default function SessionSeats ({ getAllUserChoicesDataToSend }) {
                 </h1>
             </div>
             <SeatsPageContainer>
-                <Seats>
-                    {selectedSession.seats.map(({id, name: number, isAvailable, clicked}, i) => 
-                        <Seat onClick={() => selectSeat(i, isAvailable, id)} className={`${clicked === undefined ? (isAvailable === true ? ("gray") : ("yellow")) : ("green")}`} key={i}>
-                            {number >= 1 && number <= 9 ? (
-                                "0" + number
-                            ) : (
-                                number
+                <BoxContainer>
+                    <SeatsEnv>
+                        <Seats>
+                            {selectedSession.seats.map(({id, name: number, isAvailable, clicked}, i) => 
+                                <Seat onClick={() => selectSeat(i, isAvailable, id)} className={`${clicked === undefined ? (isAvailable === true ? ("gray") : ("yellow")) : ("green")}`} key={i}>
+                                    {number >= 1 && number <= 9 ? (
+                                        "0" + number
+                                    ) : (
+                                        number
+                                    )}
+                                </Seat>
                             )}
-                        </Seat>
-                    )}
-                </Seats>
-                <LegendBox>
-                    <Description>
-                        <LegendCircle className="green">
-                        </LegendCircle>
-                        <span>
-                            Selecionado
-                        </span>
-                    </Description>
-                    <Description>
-                        <LegendCircle className="gray">
-                        </LegendCircle>
-                        <span>
-                            Disponível
-                        </span>
-                    </Description>
-                    <Description>
-                        <LegendCircle className="yellow">
-                        </LegendCircle>
-                        <span>
-                            Indisponível
-                        </span>
-                    </Description>
-                </LegendBox>
-                <InputsContainer>
-                    <InputBox>
-                        <InputExplanation>
-                            Nome do comprador:
-                        </InputExplanation>
-                        <input placeholder="Digite seu nome..." onChange={event => setNameInput(event.target.value)} value={nameInput}></input>
-                    </InputBox>
-                    <InputBox>
-                        <InputExplanation>
-                            CPF do comprador:
-                        </InputExplanation>
-                        <input placeholder="Digite seu CPF..." onChange={event => setCPFInput(event.target.value)} value={CPFInput}></input>
-                    </InputBox>
-                </InputsContainer>
-                <Buttons>
-                    <ResetButton onClick={reset}><IoIosTrash /></ResetButton>
-                    <Link onClick={event => reserveSeats(event)} to="/sucess" className={`finish-button ${(selectedSeatsIds.length > 0 && nameInput !== "" && CPFInput !== "") ? ("") : ("disabled-link")}`}>
-                        Reservar assento    
-                    </Link>
-                </Buttons>
+                        </Seats>
+                        <LegendBox>
+                            <Description>
+                                <LegendCircle className="green">
+                                </LegendCircle>
+                                <span>
+                                    Selecionado
+                                </span>
+                            </Description>
+                            <Description>
+                                <LegendCircle className="gray">
+                                </LegendCircle>
+                                <span>
+                                    Disponível
+                                </span>
+                            </Description>
+                            <Description>
+                                <LegendCircle className="yellow">
+                                </LegendCircle>
+                                <span>
+                                    Indisponível
+                                </span>
+                            </Description>
+                        </LegendBox>
+                    </SeatsEnv>
+                    <FinishEnv>
+                        <InputsContainer>
+                            <InputBox>
+                                <InputExplanation>
+                                    Nome do comprador:
+                                </InputExplanation>
+                                <input placeholder="Digite seu nome..." onChange={event => setNameInput(event.target.value)} value={nameInput}></input>
+                            </InputBox>
+                            <InputBox>
+                                <InputExplanation>
+                                    CPF do comprador:
+                                </InputExplanation>
+                                <input placeholder="Digite seu CPF..." onChange={event => setCPFInput(event.target.value)} value={CPFInput}></input>
+                            </InputBox>
+                        </InputsContainer>
+                        <Buttons>
+                            <ResetButton onClick={reset}><IoIosTrash /></ResetButton>
+                            <Link onClick={event => reserveSeats(event)} to="/sucess" className={`finish-button ${(selectedSeatsIds.length > 0 && nameInput !== "" && CPFInput !== "") ? ("") : ("disabled-link")}`}>
+                                Reservar assento    
+                            </Link>
+                        </Buttons>
+                    </FinishEnv>
+                </BoxContainer>
             </SeatsPageContainer>
             <BottomBar movieName={selectedSession.movie.title} movieURL={selectedSession.movie.posterURL} date={selectedSession.day.weekday} time={selectedSession.name}/>
         </div>
     )
 }
 
+const FinishEnv = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 332px;
+`;
+
+const SeatsEnv = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const BoxContainer = styled.div`
+    width: 80vw;
+    max-width: 1000px;
+    padding: 30px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    gap: 40px;
+    @media(max-width: 800px) {
+        flex-direction: column; 
+        align-items: center;
+    }
+`;
+
 const SeatsPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 150px;
+    margin-bottom: 150px;  
 
     .green {
         background-color: #8DD7CF;
@@ -199,7 +233,9 @@ const Seats = styled.ul`
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    width: 332px;
+    width: 100%;
+    max-width: 332px;
+    justify-content: center;
 `
 const Seat = styled.li`
     border-radius: 33px;
@@ -216,7 +252,8 @@ const LegendBox = styled.div`
     margin-top: 25px;
     display: flex;
     justify-content: space-evenly;
-    width: 332px;
+    width: 100%;
+    max-width: 332px;
 `
 const Description = styled.div`
     display: flex;
@@ -233,10 +270,8 @@ const LegendCircle = styled.div`
     border: 1px solid #808F9D;
 `
 const InputsContainer = styled.div`
-    width: 332px;
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
     gap: 10px;
 `
 const InputBox = styled.div`
@@ -264,9 +299,11 @@ const InputExplanation = styled.span`
 const Buttons = styled.div`
     display: flex;
     margin-top: 30px;
+    width: 100%;
+    max-width: 332px;
 
     .finish-button {
-        width: 225px;
+        width: 100%;
         height: 42px;
         background-color: #E8833A;
         border-radius: 3px;

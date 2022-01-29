@@ -70,9 +70,20 @@ const SessionsContainer = styled.div`
 const SessionsList = styled.ul`
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 23px;
-    width: 100%;
+    width: 80vw;
+    max-width: 1000px;
     min-width: 329px;
+    padding: 30px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    .session {
+        width:fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 `
 const SessionDate = styled.span`
     font-size: 20px;
