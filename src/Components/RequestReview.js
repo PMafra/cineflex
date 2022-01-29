@@ -79,14 +79,19 @@ const ChoiceReviewContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 23px;
     gap: 35px;
+    width: 80vw;
+    max-width: 1000px;
+    padding: 30px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
 `
 const RequestInfoBox = styled.div`
     color: #293845;
     display: flex;
     flex-direction: column;
-    width: 332px;
+    align-items: center;
+    width: 100%;
 
     h2 {
         font-size: 24px;
