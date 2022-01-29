@@ -52,9 +52,13 @@ const MoviesContainer = styled.div`
 const MoviesList = styled.ul`
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
+    justify-content: center;
     gap: 25px;
-    width: 315px;
+    width: 80vw;
+    max-width: 1000px;
+    padding: 30px;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
 `
 const Movie = styled.li`
     height: 209px;
